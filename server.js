@@ -22,7 +22,7 @@ const config = require('./config');
 // db.loadDatabase();
 
 // load up mongoose
-mongoose.connect('mongodb://localhost:27017/very_basic_express_auth_example', {useNewUrlParser: true});
+mongoose.connect(config.MONGODB_URL, {useNewUrlParser: true});
 const Schema = mongoose.Schema;
 const HelloSchema = new Schema({message:String});
 const HelloModel = mongoose.model('Hello', HelloSchema)
