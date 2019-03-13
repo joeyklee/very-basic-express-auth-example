@@ -1,7 +1,19 @@
 # A `very-basic-express-auth-example` Example
 > This is an example of setting up a basic "challenge auth" with express-basic-auth
 
+## Demos
+
+### With NeDB
+> To see this example using NeDB, check out this link
+- → [Example Using NeDb](https://github.com/joeyklee/very-basic-express-auth-example/tree/with-nedb)
+
+### With Mongodb
+> To see this example using mongodb, check out this link
+- → [Example Using mongodb](https://github.com/joeyklee/very-basic-express-auth-example/tree/with-mongodb)
+
+
 ![header image](assets/very-basic-auth-demo.png)
+
 
 The key features to note are:
 
