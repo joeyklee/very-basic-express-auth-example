@@ -2,8 +2,10 @@ const express = require('express');
 const logger = require('morgan');
 const http = require('http');
 const path = require('path');
-const Datastore = require('nedb');
+
 const basicAuth = require('express-basic-auth')
+const mongoose = require('mongoose');
+// const Datastore = require('nedb');
 const app = express();
 
 /****************************
@@ -12,12 +14,18 @@ const app = express();
 const config = require('./config');
 
 /****************************
- * your nedb
+ * your mongodb
  ****************************/
 // load up nedb
-const pathToData = path.resolve(__dirname, "db/db")
-const db = new Datastore({ filename: pathToData});
-db.loadDatabase();
+// const pathToData = path.resolve(__dirname, "db/db")
+// const db = new Datastore({ filename: pathToData});
+// db.loadDatabase();
+
+// load up mongoose
+mongoose.connect('mongodb://localhost:27017/very_basic_express_auth_example', {useNewUrlParser: true});
+const Schema = mongoose.Schema;
+const HelloSchema = new Schema({message:String});
+const HelloModel = mongoose.model('Hello', HelloSchema)
 
 /****************************
  * setting up important middleware functionality
@@ -65,7 +73,7 @@ app.get("/", challengeAuth, (req, res)=> {
 app.get("/api", challengeAuth, (req, res) => {
     console.log(req.body)
     
-    db.find({}, (err, doc)=> {
+    HelloModel.find({}, (err, doc)=> {
         res.send(doc);
     })
 })
@@ -75,7 +83,7 @@ app.get("/api", challengeAuth, (req, res) => {
   */
 app.post("/api", challengeAuth, (req, res) => {
     console.log(req.body)
-    db.insert(req.body, (err, doc)=> {
+    HelloModel.create(req.body, (err, doc)=> {
         res.send(doc);
     })
 })

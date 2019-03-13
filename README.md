@@ -3,6 +3,14 @@
 
 ![header image](assets/very-basic-auth-demo.png)
 
+## With Mongo
+> This branch uses mongodb as a database to store your hellos. Make sure mongodb is running by opening a terminal windown and running:
+
+```sh
+mongod
+```
+
+
 The key features to note are:
 
 ## config.js
