@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>Simple Express Basic Auth Demo</title>
+        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+    </head>
+    <body class="code lh-copy w-100 h-100 flex flex-column justify-center items-center">
+        <h1 class="f1 headline" id="helloCounter"></h1>
+        <button class="bn bg-yellow navy f2 pa4 shadow-5 b" id="addHelloBtn">Add a hello!</button>
+
+        <script>
+            let hellos; // will be an array of hellos
+
+            // getting our dom elements - the $variableName is a convention to indicate a DOM selection - a shoutout to JQUERY
+            const $counter = document.querySelector("#helloCounter");
+            const $addHelloBtn = document.querySelector("#addHelloBtn");
+            
+            /**
+             * When the window loads, build the page
+             */
+            window.onload = function(e){
+                // initialize the app with the hello count
+                getHellos();
+                // add an event listener to the button on click to POST to the db
+                $addHelloBtn.addEventListener('click', addHelloBtn);
+            }
+
+            /**
+             * GET hellos from the database
+             */
+            function getHellos(){
+                fetch('/api').then(result => {
+                    return result.json();
+                }).then(result => {
+                    console.log(result)
+                    hellos = result;
+                    $counter.innerHTML = `${hellos.length} Hellos in the DB`
+                }).catch(err => {
+                    return err;
+                })
+            }
+
+            /**
+             * POST hellos to the database
+             */
+            function addHelloBtn(e){
+                console.log('clicked!')
+                const message = {message:"hello"}
+                
+                const options ={
+                    method: "POST",
+                    redirect: "follow",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body:JSON.stringify(message)
+                }
+                
+                fetch('/api', options).then(result => {
+                    return result.json()
+                }).then(result => {
+                    console.log(result)
+                    // hellos.push(result);
+                    // $counter.innerHTML = `${hellos.length} Hellos in the DB`
+                    getHellos();
+                    // window.location = "/"
+                }).catch(err =>{
+                    return err
+                })
+            }
+
+            
+        </script>
+    </body>
+</html>
