@@ -1,6 +1,5 @@
 const express = require('express');
 const logger = require('morgan');
-const http = require('http');
 const path = require('path');
 
 const basicAuth = require('express-basic-auth')
@@ -96,6 +95,6 @@ app.use((req, res) => {
 /*************************
   * create http server and listen
 *************************/
-http.createServer(app).listen(config.PORT, () => {
+app.listen(config.PORT, () => {
     console.log(`see the magic at http://localhost:${config.PORT}`);
 })
